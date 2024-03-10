@@ -20,6 +20,9 @@ import { MastermindColor } from "../../../models/mastermind-color";
       <app-mastermind-color
         [color]="color"
         (colorSelected)="onColorSelected($event, $index)"
+        [isOpen]="openColorIndex() === $index"
+        (clicked)="onColorClicked($index)"
+        (dismissed)="openColorIndex.set(undefined)"
       />
     }
     <div>
@@ -46,6 +49,8 @@ export class MastermindRowFormComponent {
 
   disabled = computed(() => this.colors().some((x) => !x));
 
+  openColorIndex = signal<number | undefined>(0);
+
   @Output()
   rowSubmitted = new EventEmitter<MastermindRow>();
 
@@ -55,6 +60,9 @@ export class MastermindRowFormComponent {
         colorIndex === i ? selectedColor : color,
       ),
     );
+    this.openColorIndex.update((openIndex) =>
+      openIndex != null && openIndex < 3 ? openIndex + 1 : undefined,
+    );
   }
 
   submit() {
@@ -62,5 +70,11 @@ export class MastermindRowFormComponent {
       colors: this.colors() as any,
     });
     this.colors.set([undefined, undefined, undefined, undefined]);
+  }
+
+  onColorClicked(i: number) {
+    this.openColorIndex.update((openIndex) =>
+      openIndex === i ? undefined : i,
+    );
   }
 }

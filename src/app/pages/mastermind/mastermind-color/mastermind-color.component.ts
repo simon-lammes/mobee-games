@@ -21,7 +21,7 @@ import {
         ring: isOpen()
       }"
       [disabled]="disabled()"
-      (click)="isOpen.set(!isOpen())"
+      (click)="clicked.emit()"
       type="button"
       cdkOverlayOrigin
       #trigger
@@ -30,7 +30,7 @@ import {
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
       [cdkConnectedOverlayOpen]="isOpen()"
-      (overlayOutsideClick)="isOpen.set(false)"
+      (overlayOutsideClick)="dismissed.emit()"
       [cdkConnectedOverlayWidth]="200"
       [cdkConnectedOverlayPanelClass]="'absolute'"
       [cdkConnectedOverlayOffsetY]="8"
@@ -65,7 +65,13 @@ export class MastermindColorComponent {
 
   disabled = input(false);
 
-  isOpen = signal(false);
+  isOpen = input(false);
+
+  @Output()
+  clicked = new EventEmitter();
+
+  @Output()
+  dismissed = new EventEmitter();
 
   @Output()
   colorSelected = new EventEmitter<MastermindColor>();
@@ -73,7 +79,6 @@ export class MastermindColorComponent {
   allColors = allColors;
 
   selectColor(color: MastermindColor) {
-    this.isOpen.set(false);
     this.colorSelected.emit(color);
   }
 }
