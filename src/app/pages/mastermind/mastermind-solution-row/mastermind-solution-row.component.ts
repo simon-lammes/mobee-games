@@ -16,7 +16,6 @@ import { MastermindRow } from "../../../models/mastermind-row";
       />
     }
     <div></div>
-    <div class="h-0.5 rounded-full bg-neutral-100 col-span-6"></div>
   `,
   styles: [
     `

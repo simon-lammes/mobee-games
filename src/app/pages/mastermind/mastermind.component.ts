@@ -4,6 +4,7 @@ import { MastermindGame } from "../../models/mastermind-game";
 import { MastermindRowFormComponent } from "./mastermind-row-form/mastermind-row-form.component";
 import { MastermindRow } from "../../models/mastermind-row";
 import { MastermindSolutionRowComponent } from "./mastermind-solution-row/mastermind-solution-row.component";
+import { MastermindRowSeparatorComponent } from "./mastermind-row-separator/mastermind-row-separator.component";
 
 @Component({
   selector: "app-mastermind",
@@ -12,13 +13,18 @@ import { MastermindSolutionRowComponent } from "./mastermind-solution-row/master
     MastermindGuessRowComponent,
     MastermindRowFormComponent,
     MastermindSolutionRowComponent,
+    MastermindRowSeparatorComponent,
   ],
   template: `
-    <div class="grid grid-cols-6 max-w-xl m-auto p-8">
+    <div class="grid grid-cols-6 max-w-xl m-auto p-8 gap-y-2">
       @if (game().actualPattern; as pattern) {
         <app-mastermind-solution-row [row]="pattern" [hidden]="true" />
+        <app-mastermind-row-separator />
         @for (guess of game().guesses; track $index) {
           <app-mastermind-guess-row [row]="guess" [index]="$index" />
+        }
+        @if (game().guesses.length) {
+          <app-mastermind-row-separator />
         }
         <app-mastermind-row-form
           label="Next guess"
