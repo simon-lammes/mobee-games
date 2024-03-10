@@ -54,7 +54,14 @@ export class MastermindComponent {
       ...game,
       guesses: [
         ...game.guesses,
-        { ...guess, hints: { correct: 1, correctColorButWrongPosition: 1 } },
+        {
+          ...guess,
+          hints: {
+            correct: 1,
+            correctColorButWrongPosition: 1,
+            incorrectCount: 2,
+          },
+        },
       ],
     }));
   }
