@@ -1,12 +1,19 @@
 import { Component, input } from "@angular/core";
 import { MastermindColor } from "../../../models/mastermind-color";
+import { NgClass } from "@angular/common";
 
 @Component({
   selector: "app-mastermind-color",
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   template: `
-    <div style="height: 1rem; width: 1rem; background-color: red"></div>
+    <div
+      class="h-4 w-4 rounded-full"
+      [ngClass]="{
+        'bg-red-500': color() === 'red',
+        'bg-yellow-500': color() === 'yellow'
+      }"
+    ></div>
   `,
   styles: ``,
 })

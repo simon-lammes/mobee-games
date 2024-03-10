@@ -12,5 +12,5 @@ import { MastermindColorComponent } from "../mastermind-color/mastermind-color.c
   styles: ``,
 })
 export class MastermindRowFormComponent {
-  row = signal<MastermindRow>({ colors: ["red", "red", "red", "red"] });
+  row = signal<MastermindRow>({ colors: ["red", "red", "red", "yellow"] });
 }
