@@ -15,6 +15,7 @@ import { MastermindColor } from "../../../models/mastermind-color";
   standalone: true,
   imports: [MastermindColorComponent],
   template: `
+    <b class="font-bold">{{ label() }}</b>
     @for (color of colors(); track $index) {
       <app-mastermind-color
         [color]="color"
@@ -34,6 +35,8 @@ import { MastermindColor } from "../../../models/mastermind-color";
   ],
 })
 export class MastermindRowFormComponent {
+  label = input.required<string>();
+
   colors = signal<(MastermindColor | undefined)[]>([
     undefined,
     undefined,

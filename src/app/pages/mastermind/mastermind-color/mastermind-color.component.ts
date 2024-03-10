@@ -1,15 +1,19 @@
 import { Component, EventEmitter, input, Output, signal } from "@angular/core";
 import { allColors, MastermindColor } from "../../../models/mastermind-color";
 import { NgClass } from "@angular/common";
-import { CdkConnectedOverlay, CdkOverlayOrigin } from "@angular/cdk/overlay";
+import {
+  CdkConnectedOverlay,
+  CdkOverlayOrigin,
+  OverlayModule,
+} from "@angular/cdk/overlay";
 
 @Component({
   selector: "app-mastermind-color",
   standalone: true,
-  imports: [NgClass, CdkOverlayOrigin, CdkConnectedOverlay],
+  imports: [NgClass, OverlayModule],
   template: `
     <button
-      class="h-4 w-4 rounded-full m-auto"
+      class="h-6 w-6 rounded-full m-auto"
       [ngClass]="{
         'bg-red-500': color() === 'red',
         'bg-yellow-500': color() === 'yellow',
@@ -20,22 +24,23 @@ import { CdkConnectedOverlay, CdkOverlayOrigin } from "@angular/cdk/overlay";
       (click)="isOpen.set(!isOpen())"
       type="button"
       cdkOverlayOrigin
-      #trigger="cdkOverlayOrigin"
+      #trigger
     ></button>
     <ng-template
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
       [cdkConnectedOverlayOpen]="isOpen()"
-      [cdkConnectedOverlayHasBackdrop]="true"
-      [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
-      [cdkConnectedOverlayOffsetX]="16"
-      [cdkConnectedOverlayOffsetY]="4"
       (overlayOutsideClick)="isOpen.set(false)"
+      [cdkConnectedOverlayWidth]="200"
+      [cdkConnectedOverlayPanelClass]="'absolute'"
+      [cdkConnectedOverlayOffsetY]="8"
     >
-      <div class="shadow-sm border rounded-sm w-32">
+      <div
+        class="shadow-sm border rounded-sm bg-neutral-50 px-3 py-2 flex gap-3"
+      >
         @for (color of allColors; track color) {
           <button
-            class="h-4 w-4 rounded-full"
+            class="h-6 w-6 rounded-full"
             [ngClass]="{
               'bg-red-500': color === 'red',
               'bg-yellow-500': color === 'yellow'
@@ -46,7 +51,14 @@ import { CdkConnectedOverlay, CdkOverlayOrigin } from "@angular/cdk/overlay";
       </div>
     </ng-template>
   `,
-  styles: ``,
+  styles: [
+    `
+      :host {
+        text-align: center;
+        line-height: 1;
+      }
+    `,
+  ],
 })
 export class MastermindColorComponent {
   color = input.required<MastermindColor | undefined>();

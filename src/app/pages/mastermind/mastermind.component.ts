@@ -14,16 +14,19 @@ import { MastermindSolutionRowComponent } from "./mastermind-solution-row/master
     MastermindSolutionRowComponent,
   ],
   template: `
-    <div class="grid grid-cols-4 max-w-md m-auto p-8">
+    <div class="grid grid-cols-6 max-w-xl m-auto p-8">
       @if (game().actualPattern; as pattern) {
         <app-mastermind-solution-row [row]="pattern" [hidden]="true" />
         @for (guess of game().guesses; track $index) {
-          <app-mastermind-guess-row [row]="guess" />
+          <app-mastermind-guess-row [row]="guess" [index]="$index" />
         }
-        <h2 class="col-span-4">Make your guess:</h2>
-        <app-mastermind-row-form (rowSubmitted)="onGuessSubmitted($event)" />
+        <app-mastermind-row-form
+          label="Next guess"
+          (rowSubmitted)="onGuessSubmitted($event)"
+        />
       } @else {
         <app-mastermind-row-form
+          label="Solution"
           (rowSubmitted)="onActualPatternSubmitted($event)"
         />
       }

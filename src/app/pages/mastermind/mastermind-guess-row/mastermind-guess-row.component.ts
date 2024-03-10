@@ -7,9 +7,11 @@ import { MastermindColorComponent } from "../mastermind-color/mastermind-color.c
   standalone: true,
   imports: [MastermindColorComponent],
   template: `
+    <b class="font-bold">Guess {{ index() + 1 }}</b>
     @for (color of row().colors; track $index) {
       <app-mastermind-color [color]="color" [disabled]="true" />
     }
+    <div></div>
   `,
   styles: [
     `
@@ -21,4 +23,6 @@ import { MastermindColorComponent } from "../mastermind-color/mastermind-color.c
 })
 export class MastermindGuessRowComponent {
   row = input.required<MastermindGuessRow>();
+
+  index = input.required<number>();
 }
