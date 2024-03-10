@@ -1,9 +1,7 @@
 import { MastermindColor } from "./mastermind-color";
 import { MastermindRow } from "./mastermind-row";
+import { MastermindHints } from "./mastermind-hints";
 
 export interface MastermindGuessRow extends MastermindRow {
-  hints: {
-    correct: number;
-    correctColorButWrongPosition: number;
-  };
+  hints: MastermindHints;
 }
