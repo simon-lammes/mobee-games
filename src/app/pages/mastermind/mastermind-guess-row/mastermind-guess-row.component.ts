@@ -1,16 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, input } from "@angular/core";
+import { MastermindGuessRow } from "../../../models/mastermind-guess-row";
+import { MastermindColorComponent } from "../mastermind-color/mastermind-color.component";
 
 @Component({
-  selector: 'app-mastermind-guess-row',
+  selector: "app-mastermind-guess-row",
   standalone: true,
-  imports: [],
+  imports: [MastermindColorComponent],
   template: `
-    <p>
-      mastermind-guess-row works!
-    </p>
+    @for (color of row().colors; track $index) {
+      <app-mastermind-color [color]="color" [disabled]="true" />
+    }
   `,
-  styles: ``
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
 export class MastermindGuessRowComponent {
-
+  row = input.required<MastermindGuessRow>();
 }

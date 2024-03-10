@@ -9,12 +9,14 @@ import { CdkConnectedOverlay, CdkOverlayOrigin } from "@angular/cdk/overlay";
   imports: [NgClass, CdkOverlayOrigin, CdkConnectedOverlay],
   template: `
     <button
-      class="h-4 w-4 rounded-full"
+      class="h-4 w-4 rounded-full m-auto"
       [ngClass]="{
         'bg-red-500': color() === 'red',
         'bg-yellow-500': color() === 'yellow',
+        'bg-neutral-500': !color(),
         ring: isOpen()
       }"
+      [disabled]="disabled()"
       (click)="isOpen.set(!isOpen())"
       type="button"
       cdkOverlayOrigin
@@ -47,7 +49,9 @@ import { CdkConnectedOverlay, CdkOverlayOrigin } from "@angular/cdk/overlay";
   styles: ``,
 })
 export class MastermindColorComponent {
-  color = input.required<MastermindColor>();
+  color = input.required<MastermindColor | undefined>();
+
+  disabled = input(false);
 
   isOpen = signal(false);
 
