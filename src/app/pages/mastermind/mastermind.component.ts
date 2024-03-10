@@ -15,11 +15,8 @@ import { MastermindSolutionRowComponent } from "./mastermind-solution-row/master
   ],
   template: `
     <div class="grid grid-cols-4 max-w-md m-auto p-8">
-      @if (game().actualPattern) {
-        <app-mastermind-solution-row
-          [row]="game().actualPattern"
-          [hidden]="true"
-        />
+      @if (game().actualPattern; as pattern) {
+        <app-mastermind-solution-row [row]="pattern" [hidden]="true" />
         @for (guess of game().guesses; track $index) {
           <app-mastermind-guess-row [row]="guess" />
         }
