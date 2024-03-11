@@ -5,7 +5,7 @@ import { MastermindRowFormComponent } from "./mastermind-row-form/mastermind-row
 import { MastermindRow } from "../../models/mastermind-row";
 import { MastermindSolutionRowComponent } from "./mastermind-solution-row/mastermind-solution-row.component";
 import { MastermindRowSeparatorComponent } from "./mastermind-row-separator/mastermind-row-separator.component";
-import { MastermindColor } from "../../models/mastermind-color";
+import { allColors, MastermindColor } from "../../models/mastermind-color";
 import { MastermindHints } from "../../models/mastermind-hints";
 
 @Component({
@@ -57,6 +57,7 @@ import { MastermindHints } from "../../models/mastermind-hints";
 })
 export class MastermindComponent {
   game = signal<MastermindGame>({
+    allowedColors: allColors,
     guesses: [],
     state: "playing",
   });
