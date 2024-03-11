@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { MastermindRow } from "../../../models/mastermind-row";
 import { MastermindColorComponent } from "../mastermind-color/mastermind-color.component";
-import { MastermindColor } from "../../../models/mastermind-color";
+import { allColors, MastermindColor } from "../../../models/mastermind-color";
 
 @Component({
   selector: "app-mastermind-row-form",
@@ -19,15 +19,29 @@ import { MastermindColor } from "../../../models/mastermind-color";
     @for (color of colors(); track $index) {
       <app-mastermind-color
         [color]="color"
-        (colorSelected)="onColorSelected($event, $index)"
         [isOpen]="openColorIndex() === $index"
+        [disabled]="false"
         (clicked)="onColorClicked($index)"
-        (dismissed)="openColorIndex.set(undefined)"
       />
     }
     <div>
       <button [disabled]="disabled()" (click)="submit()">confirm</button>
     </div>
+    @if (openColorIndex() != null) {
+      <div
+        class="flex gap-3 col-span-6 border-2 border-blue-300 rounded-md px-3 py-2"
+      >
+        @for (color of allColors; track $index) {
+          <app-mastermind-color
+            [disabled]="false"
+            [isOpen]="false"
+            [color]="color"
+            (clicked)="onColorSelected(color)"
+          />
+        }
+      </div>
+      <div></div>
+    }
   `,
   styles: [
     `
@@ -54,7 +68,10 @@ export class MastermindRowFormComponent {
   @Output()
   rowSubmitted = new EventEmitter<MastermindRow>();
 
-  onColorSelected(selectedColor: MastermindColor, i: number) {
+  readonly allColors = allColors;
+
+  onColorSelected(selectedColor: MastermindColor) {
+    const i = this.openColorIndex();
     this.colors.update((colors) =>
       colors.map((color, colorIndex) =>
         colorIndex === i ? selectedColor : color,
@@ -73,6 +90,7 @@ export class MastermindRowFormComponent {
   }
 
   onColorClicked(i: number) {
+    console.log("hi", i);
     this.openColorIndex.update((openIndex) =>
       openIndex === i ? undefined : i,
     );
