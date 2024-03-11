@@ -20,7 +20,10 @@ import { MastermindHints } from "../../models/mastermind-hints";
   template: `
     <div class="grid grid-cols-6 max-w-xl m-auto p-8 gap-y-2 items-center">
       @if (game().actualPattern; as pattern) {
-        <app-mastermind-solution-row [row]="pattern" [hidden]="true" />
+        <app-mastermind-solution-row
+          [row]="pattern"
+          [hidden]="game().state !== 'complete'"
+        />
         <app-mastermind-row-separator />
         @for (guess of game().guesses; track $index) {
           <app-mastermind-guess-row [row]="guess" [index]="$index" />
@@ -28,15 +31,22 @@ import { MastermindHints } from "../../models/mastermind-hints";
         @if (game().guesses.length) {
           <app-mastermind-row-separator />
         }
-        <app-mastermind-row-form
-          label="Next guess"
-          (rowSubmitted)="onGuessSubmitted($event)"
-        />
-      } @else {
+        @if (game().state === "playing") {
+          <app-mastermind-row-form
+            label="Next guess"
+            (rowSubmitted)="onGuessSubmitted($event)"
+          />
+        }
+      } @else if (game().state === "playing") {
         <app-mastermind-row-form
           label="Solution"
           (rowSubmitted)="onActualPatternSubmitted($event)"
         />
+      }
+      @if (game().state === "complete") {
+        <div class="text-2xl font-bold col-span-6">
+          You have solved the puzzle with {{ game().guesses.length }} guesses!
+        </div>
       }
     </div>
   `,
@@ -45,6 +55,7 @@ import { MastermindHints } from "../../models/mastermind-hints";
 export class MastermindComponent {
   game = signal<MastermindGame>({
     guesses: [],
+    state: "playing",
   });
 
   onActualPatternSubmitted(pattern: MastermindRow) {
@@ -52,16 +63,20 @@ export class MastermindComponent {
   }
 
   onGuessSubmitted(guess: MastermindRow) {
-    this.game.update((game) => ({
-      ...game,
-      guesses: [
-        ...game.guesses,
-        {
-          ...guess,
-          hints: this.determineHints(game.actualPattern!, guess),
-        },
-      ],
-    }));
+    this.game.update((game) => {
+      let hints = this.determineHints(game.actualPattern!, guess);
+      return {
+        ...game,
+        state: hints.correct === 4 ? "complete" : game.state,
+        guesses: [
+          ...game.guesses,
+          {
+            ...guess,
+            hints,
+          },
+        ],
+      };
+    });
   }
 
   determineHints(

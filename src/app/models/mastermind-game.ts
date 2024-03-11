@@ -4,4 +4,5 @@ import { MastermindRow } from "./mastermind-row";
 export interface MastermindGame {
   actualPattern?: MastermindRow;
   guesses: MastermindGuessRow[];
+  state: "playing" | "complete";
 }
