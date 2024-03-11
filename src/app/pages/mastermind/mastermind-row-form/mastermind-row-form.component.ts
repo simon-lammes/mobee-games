@@ -87,6 +87,7 @@ export class MastermindRowFormComponent {
       colors: this.colors() as any,
     });
     this.colors.set([undefined, undefined, undefined, undefined]);
+    this.openColorIndex.set(0);
   }
 
   onColorClicked(i: number) {

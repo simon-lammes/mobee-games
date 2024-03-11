@@ -13,9 +13,13 @@ import { OverlayModule } from "@angular/cdk/overlay";
       [disabled]="disabled()"
       [ngClass]="{
         'bg-red-500': color() === 'red',
+        'bg-blue-500': color() === 'blue',
+        'bg-green-500': color() === 'green',
         'bg-yellow-500': color() === 'yellow',
+        'bg-orange-500': color() === 'orange',
+        'bg-purple-500': color() === 'purple',
         'bg-neutral-500': !color(),
-        'ring ring-blue-300 ring-4': isOpen()
+        'ring-blue-300 ring-4': isOpen()
       }"
       (click)="clicked.emit($event)"
       type="button"
