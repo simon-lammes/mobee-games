@@ -25,7 +25,9 @@ import { allColors, MastermindColor } from "../../../models/mastermind-color";
       />
     }
     <div>
-      <button [disabled]="disabled()" (click)="submit()">confirm</button>
+      <button class="text-2xl" [disabled]="disabled()" (click)="submit()">
+        {{ disabled() ? "✔️" : "✅" }}
+      </button>
     </div>
     @if (openColorIndex() != null) {
       <div
