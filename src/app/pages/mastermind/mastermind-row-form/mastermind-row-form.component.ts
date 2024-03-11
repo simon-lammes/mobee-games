@@ -9,6 +9,8 @@ import {
 import { MastermindRow } from "../../../models/mastermind-row";
 import { MastermindColorComponent } from "../mastermind-color/mastermind-color.component";
 import { allColors, MastermindColor } from "../../../models/mastermind-color";
+import { MastermindService } from "../../../services/mastermind.service";
+import { MastermindGame } from "../../../models/mastermind-game";
 
 @Component({
   selector: "app-mastermind-row-form",
@@ -24,7 +26,10 @@ import { allColors, MastermindColor } from "../../../models/mastermind-color";
         (clicked)="onColorClicked($index)"
       />
     }
-    <div>
+    <div class="gap-3 flex items-center">
+      @if (showDetermineNextGuessButton()) {
+        <button class="text-5xl -mt-3" (click)="determineNextGuess()">🖩</button>
+      }
       <button class="text-2xl" [disabled]="disabled()" (click)="submit()">
         {{ disabled() ? "✔️" : "✅" }}
       </button>
@@ -67,10 +72,16 @@ export class MastermindRowFormComponent {
 
   openColorIndex = signal<number | undefined>(0);
 
+  game = input.required<MastermindGame>();
+
+  showDetermineNextGuessButton = input(false);
+
   @Output()
   rowSubmitted = new EventEmitter<MastermindRow>();
 
   readonly allColors = allColors;
+
+  constructor(private mastermindService: MastermindService) {}
 
   onColorSelected(selectedColor: MastermindColor) {
     const i = this.openColorIndex();
@@ -97,5 +108,10 @@ export class MastermindRowFormComponent {
     this.openColorIndex.update((openIndex) =>
       openIndex === i ? undefined : i,
     );
+  }
+
+  async determineNextGuess() {
+    const guess = await this.mastermindService.determineNextGuess(this.game());
+    this.colors.set(guess.colors);
   }
 }

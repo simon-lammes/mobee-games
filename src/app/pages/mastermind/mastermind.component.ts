@@ -34,12 +34,15 @@ import { MastermindHints } from "../../models/mastermind-hints";
         @if (game().state === "playing") {
           <app-mastermind-row-form
             label="Next guess"
+            [game]="game()"
+            [showDetermineNextGuessButton]="true"
             (rowSubmitted)="onGuessSubmitted($event)"
           />
         }
       } @else if (game().state === "playing") {
         <app-mastermind-row-form
           label="Solution"
+          [game]="game()"
           (rowSubmitted)="onActualPatternSubmitted($event)"
         />
       }
