@@ -5,6 +5,8 @@ import { MastermindRowFormComponent } from "./mastermind-row-form/mastermind-row
 import { MastermindRow } from "../../models/mastermind-row";
 import { MastermindSolutionRowComponent } from "./mastermind-solution-row/mastermind-solution-row.component";
 import { MastermindRowSeparatorComponent } from "./mastermind-row-separator/mastermind-row-separator.component";
+import { MastermindColor } from "../../models/mastermind-color";
+import { MastermindHints } from "../../models/mastermind-hints";
 
 @Component({
   selector: "app-mastermind",
@@ -16,7 +18,7 @@ import { MastermindRowSeparatorComponent } from "./mastermind-row-separator/mast
     MastermindRowSeparatorComponent,
   ],
   template: `
-    <div class="grid grid-cols-6 max-w-xl m-auto p-8 gap-y-2">
+    <div class="grid grid-cols-6 max-w-xl m-auto p-8 gap-y-2 items-center">
       @if (game().actualPattern; as pattern) {
         <app-mastermind-solution-row [row]="pattern" [hidden]="true" />
         <app-mastermind-row-separator />
@@ -56,13 +58,39 @@ export class MastermindComponent {
         ...game.guesses,
         {
           ...guess,
-          hints: {
-            correct: 1,
-            correctColorButWrongPosition: 1,
-            incorrectCount: 2,
-          },
+          hints: this.determineHints(game.actualPattern!, guess),
         },
       ],
     }));
+  }
+
+  determineHints(
+    { colors: solutionColors }: MastermindRow,
+    { colors: guessColors }: MastermindRow,
+  ) {
+    const notGuessedPinColors: MastermindColor[] = [];
+    const incorrectSolutionColors: MastermindColor[] = [];
+    let correct = 0;
+    for (let i = 0; i < 4; i++) {
+      if (solutionColors[i] === guessColors[i]) {
+        correct++;
+      } else {
+        notGuessedPinColors.push(solutionColors[i]);
+        incorrectSolutionColors.push(guessColors[i]);
+      }
+    }
+    let correctColorButWrongPosition = 0;
+    for (const notGuessedPinColor of notGuessedPinColors) {
+      const solutionIndex = incorrectSolutionColors.indexOf(notGuessedPinColor);
+      if (solutionIndex > -1) {
+        incorrectSolutionColors.splice(solutionIndex, 1);
+        correctColorButWrongPosition++;
+      }
+    }
+    return {
+      correct,
+      correctColorButWrongPosition,
+      incorrectCount: 4 - correct - correctColorButWrongPosition,
+    } satisfies MastermindHints;
   }
 }
