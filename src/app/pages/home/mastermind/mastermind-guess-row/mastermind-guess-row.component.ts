@@ -1,5 +1,5 @@
 import { Component, input } from "@angular/core";
-import { MastermindGuessRow } from "../../../models/mastermind-guess-row";
+import { MastermindGuessRow } from "../../../../models/mastermind-guess-row";
 import { MastermindColorComponent } from "../mastermind-color/mastermind-color.component";
 import { MastermindHintsComponent } from "../mastermind-hint/mastermind-hints.component";
 
