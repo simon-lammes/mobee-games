@@ -21,6 +21,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "war-of-balls",
+        loadComponent: () =>
+          import("./war-of-balls/war-of-balls.component").then(
+            (x) => x.WarOfBallsComponent,
+          ),
+      },
+      {
         path: "**",
         redirectTo: "mastermind",
       },

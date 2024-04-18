@@ -8,6 +8,7 @@ import { RouterLink } from "@angular/router";
   template: `
     <a [routerLink]="['mastermind']">Mastermind</a>
     <a [routerLink]="['tic-tac-toe']">Tic-tac-toe</a>
+    <a [routerLink]="['war-of-balls']">War of balls</a>
   `,
   styles: ``,
 })
