@@ -1,3 +1,4 @@
+import { Injectable } from "@angular/core";
 import Dexie, { Table } from "dexie";
 import { Player } from "../models/player";
 
@@ -7,7 +8,10 @@ import { Player } from "../models/player";
  * because then it could become bloated. For example, a queryPlayers method
  * could go to a player service which just makes use of this db class.
  */
-class Db extends Dexie {
+@Injectable({
+  providedIn: "root",
+})
+export class DbService extends Dexie {
   readonly players!: Table<Player, string>;
 
   constructor() {
@@ -28,8 +32,3 @@ class Db extends Dexie {
     });
   }
 }
-
-/**
- * Singleton IndexedDB client.
- */
-export const db = new Db();
