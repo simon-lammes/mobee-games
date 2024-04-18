@@ -1,4 +1,6 @@
+import { Pixels } from "./pixels";
+
 export interface WarOfBallsPosition {
-  x: number;
-  y: number;
+  x: Pixels;
+  y: Pixels;
 }

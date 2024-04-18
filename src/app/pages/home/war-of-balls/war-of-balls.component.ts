@@ -11,8 +11,12 @@ import { WarOfBallsGame } from "../../../models/war-of-balls/war-of-balls-game";
       play/pause
     </button>
     <p>{{ ticker.timePassedMillis() }}</p>
-    <svg>
-      @for (player of players(); track $index) {
+    <svg
+      class="border-2 border-blue-500"
+      [attr.height]="game.height"
+      [attr.width]="game.width"
+    >
+      @for (player of game.players; track $index) {
         <circle
           r="8"
           [attr.cx]="player.position.x"
@@ -30,24 +34,28 @@ import { WarOfBallsGame } from "../../../models/war-of-balls/war-of-balls-game";
 export class WarOfBallsComponent {
   readonly ticker = new Ticker();
 
-  readonly game = signal<WarOfBallsGame>({
-    players: [{ position: { x: 0, y: 0 }, velocity: { x: 1, y: 1 } }],
-  });
-
-  readonly players = computed(() => this.game().players);
+  /**
+   * The game state object is just a raw, mutable variable.
+   * Even though it is more error-prone than signals holding
+   * objects that are only modified through copies,
+   * I went with this approach.
+   * It is easier to work with, considering that such a complex game has a ton
+   * of changes happening every few milliseconds.
+   */
+  game: WarOfBallsGame = {
+    width: 800,
+    height: 600,
+    players: [{ position: { x: 0, y: 0 }, velocity: { x: 100, y: 100 } }],
+  };
 
   constructor() {
-    this.ticker.registerUpdateCallback((x) => {
-      this.game.update((previousGame) => {
-        const newGame = { ...previousGame };
-        newGame.players = previousGame.players.map((player) => {
-          const newPosition = {
-            x: player.position.x + player.velocity.x,
-            y: player.position.y + player.velocity.y,
-          };
-          return { ...player, position: newPosition };
-        });
-        return newGame;
+    this.ticker.registerUpdateCallback((millisecondsPassed) => {
+      const secondsPassed = millisecondsPassed / 1000;
+      this.game.players.forEach((player) => {
+        player.position.x =
+          player.position.x + player.velocity.x * secondsPassed;
+        player.position.y =
+          player.position.y + player.velocity.y * secondsPassed;
       });
     });
   }
