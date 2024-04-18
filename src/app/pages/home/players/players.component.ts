@@ -14,7 +14,10 @@ import { PlayerQueryComponent } from "./player-query/player-query.component";
   standalone: true,
   imports: [AsyncPipe, PlayerComponent, PlayerQueryComponent],
   template: `
-    <app-player-query [playerQuery]="playerQuery()" />
+    <app-player-query
+      [playerQuery]="playerQuery()"
+      (playerQueryChanged)="playerQuery.set($event)"
+    />
 
     @if (players$ | async; as players) {
       @for (player of players; track player.id) {

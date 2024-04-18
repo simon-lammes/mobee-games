@@ -12,6 +12,22 @@ export class PlayerService {
   constructor(private dbService: DbService) {}
 
   queryPlayers(query: PlayerQuery): Observable<Player[]> {
-    return from(liveQuery(() => this.dbService.players.toArray()));
+    if (!query.search?.length) {
+      return from(liveQuery(() => this.dbService.players.toArray()));
+    }
+    const words = query.search?.toLowerCase().split(" ") ?? [];
+    return from(
+      liveQuery(() =>
+        this.dbService.players
+          .filter((player) =>
+            words.every(
+              (word) =>
+                player.firstName.toLowerCase().includes(word) ||
+                player.lastName.toLowerCase().includes(word),
+            ),
+          )
+          .toArray(),
+      ),
+    );
   }
 }
