@@ -6,11 +6,17 @@ import { effect, signal } from "@angular/core";
  * It is basically a convenient wrapper around the [requestAnimationFrame API](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
  */
 export class Ticker {
+  /**
+   * The time that has passed **while the ticker has been in a 'running' state**.
+   */
   readonly timePassedMillis = signal(0);
 
+  /**
+   * The timestamp of the most recent "requestAnimationFrame" execution.
+   */
   private readonly previousTimestamp = signal(performance.now());
 
-  private readonly isRunning = signal(false);
+  readonly isRunning = signal(false);
 
   constructor() {
     this.update();
@@ -23,7 +29,7 @@ export class Ticker {
    * As soon as we finish handling an animation frame, the recursive call of this method will call requestAnimationFrame again.
    * This approach is inspired by [Mozilla's documentation.](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
    */
-  update() {
+  private update() {
     requestAnimationFrame((timestamp) => {
       if (this.isRunning()) {
         const timePassedSinceLastFrame = timestamp - this.previousTimestamp();

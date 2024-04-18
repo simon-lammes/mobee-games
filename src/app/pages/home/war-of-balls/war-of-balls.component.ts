@@ -1,15 +1,17 @@
 import { Component, computed, effect, signal } from "@angular/core";
 import { Ticker } from "../../../lib/ticker";
 import { WarOfBallsGame } from "../../../models/games/war-of-balls/war-of-balls-game";
+import { OutlineButtonComponent } from "../../../components/outline-button/outline-button.component";
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: "app-war-of-balls",
   standalone: true,
-  imports: [],
+  imports: [OutlineButtonComponent, LucideAngularModule],
   template: `
-    <button class="font-bold text-2xl" (click)="ticker.playPause()">
-      play/pause
-    </button>
+    <app-outline-button (click)="ticker.playPause()">
+      <lucide-icon [name]="ticker.isRunning() ? 'pause' : 'play'"></lucide-icon>
+    </app-outline-button>
     <p>{{ ticker.timePassedMillis() }}</p>
     <svg
       class="border-2 border-blue-500"

@@ -6,11 +6,17 @@ import { PlayerService } from "../../../../services/player.service";
 import { InputFieldComponent } from "../../../../components/input-field/input-field.component";
 import { OutlineButtonComponent } from "../../../../components/outline-button/outline-button.component";
 import { LucideAngularModule } from "lucide-angular";
+import { AddPlayerButtonComponent } from "./add-player-button/add-player-button.component";
 
 @Component({
   selector: "app-player-query",
   standalone: true,
-  imports: [InputFieldComponent, OutlineButtonComponent, LucideAngularModule],
+  imports: [
+    InputFieldComponent,
+    OutlineButtonComponent,
+    LucideAngularModule,
+    AddPlayerButtonComponent,
+  ],
   template: `
     <div class="flex gap-3">
       <app-input-field
@@ -18,12 +24,7 @@ import { LucideAngularModule } from "lucide-angular";
         placeholder="Search players..."
         (valueChange)="onSearchChange($event)"
       />
-      <app-outline-button>
-        <span class="flex items-center gap-1">
-          <lucide-icon class="w-4 h-4" name="plus"></lucide-icon>
-          Add player
-        </span>
-      </app-outline-button>
+      <app-add-player-button />
     </div>
   `,
   styles: ``,
