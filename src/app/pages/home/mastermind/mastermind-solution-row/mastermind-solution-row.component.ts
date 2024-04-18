@@ -1,6 +1,6 @@
 import { Component, input } from "@angular/core";
 import { MastermindColorComponent } from "../mastermind-color/mastermind-color.component";
-import { MastermindRow } from "../../../../models/mastermind-row";
+import { MastermindRow } from "../../../../models/mastermind/mastermind-row";
 
 @Component({
   selector: "app-mastermind-solution-row",

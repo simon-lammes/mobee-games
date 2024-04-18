@@ -6,11 +6,14 @@ import {
   Output,
   signal,
 } from "@angular/core";
-import { MastermindRow } from "../../../../models/mastermind-row";
+import { MastermindRow } from "../../../../models/mastermind/mastermind-row";
 import { MastermindColorComponent } from "../mastermind-color/mastermind-color.component";
-import { allColors, MastermindColor } from "../../../../models/mastermind-color";
+import {
+  allColors,
+  MastermindColor,
+} from "../../../../models/mastermind/mastermind-color";
 import { MastermindService } from "../../../../services/mastermind.service";
-import { MastermindGame } from "../../../../models/mastermind-game";
+import { MastermindGame } from "../../../../models/mastermind/mastermind-game";
 
 @Component({
   selector: "app-mastermind-row-form",

@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 import * as Comlink from "comlink";
-import { MastermindWorkerInterface } from "../models/mastermind-worker-interface";
+import { MastermindWorkerInterface } from "../models/mastermind/mastermind-worker-interface";
 
 const workerInterface: MastermindWorkerInterface = {
   determineNextGuess: (game) => {

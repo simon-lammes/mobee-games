@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as Comlink from "comlink";
-import { MastermindWorkerInterface } from "../models/mastermind-worker-interface";
-import { MastermindGame } from "../models/mastermind-game";
+import { MastermindWorkerInterface } from "../models/mastermind/mastermind-worker-interface";
+import { MastermindGame } from "../models/mastermind/mastermind-game";
 
 const worker = new Worker(
   new URL("../workers/mastermind.worker", import.meta.url),

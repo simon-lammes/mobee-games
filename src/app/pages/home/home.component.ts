@@ -1,20 +1,15 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { ToolbarComponent } from "./toolbar/toolbar.component";
 
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   standalone: true,
-  imports: [
-    RouterOutlet
-  ],
+  imports: [RouterOutlet, ToolbarComponent],
   template: `
-    <p>
-      home works!
-    </p>
+    <app-toolbar />
     <router-outlet></router-outlet>
   `,
-  styles: ``
+  styles: ``,
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}
