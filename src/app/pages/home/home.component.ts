@@ -8,7 +8,9 @@ import { ToolbarComponent } from "./toolbar/toolbar.component";
   imports: [RouterOutlet, ToolbarComponent],
   template: `
     <app-toolbar />
-    <router-outlet></router-outlet>
+    <div class="p-4 max-w-screen-xl m-auto">
+      <router-outlet></router-outlet>
+    </div>
   `,
   styles: ``,
 })

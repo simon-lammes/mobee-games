@@ -12,8 +12,18 @@ export class Ticker {
 
   private readonly isRunning = signal(false);
 
-  private readonly updateTimePassedMillisEffect = effect(() => {
-    this.previousTimestamp();
+  constructor() {
+    this.update();
+  }
+
+  /**
+   * Requests an animation frame.
+   * In the callback, our timing state is updated accordingly.
+   * Then, this method calls itself, thereby making sure that we keep requesting animation frames infinitely.
+   * As soon as we finish handling an animation frame, the recursive call of this method will call requestAnimationFrame again.
+   * This approach is inspired by [Mozilla's documentation.](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
+   */
+  update() {
     requestAnimationFrame((timestamp) => {
       if (this.isRunning()) {
         const timePassedSinceLastFrame = timestamp - this.previousTimestamp();
@@ -23,8 +33,9 @@ export class Ticker {
         this.updateCallbacks.forEach((cb) => cb(timePassedSinceLastFrame));
       }
       this.previousTimestamp.set(timestamp);
+      this.update();
     });
-  });
+  }
 
   private readonly updateCallbacks: UpdateCallback[] = [];
 
