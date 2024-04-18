@@ -1,5 +1,5 @@
 import { WarOfBallsPlayer } from "./war-of-balls-player";
-import { Pixels } from "./pixels";
+import { Pixels } from "../pixels";
 
 export interface WarOfBallsGame {
   width: Pixels;

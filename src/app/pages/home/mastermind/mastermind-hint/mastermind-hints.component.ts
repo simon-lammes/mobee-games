@@ -1,5 +1,5 @@
 import { Component, computed, input } from "@angular/core";
-import { MastermindHints } from "../../../../models/mastermind/mastermind-hints";
+import { MastermindHints } from "../../../../models/games/mastermind/mastermind-hints";
 import { NgClass } from "@angular/common";
 
 @Component({

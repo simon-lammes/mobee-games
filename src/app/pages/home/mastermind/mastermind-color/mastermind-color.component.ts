@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from "@angular/core";
-import { MastermindColor } from "../../../../models/mastermind/mastermind-color";
+import { MastermindColor } from "../../../../models/games/mastermind/mastermind-color";
 import { NgClass } from "@angular/common";
 import { OverlayModule } from "@angular/cdk/overlay";
 

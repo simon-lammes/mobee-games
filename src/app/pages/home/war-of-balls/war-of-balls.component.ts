@@ -1,6 +1,6 @@
 import { Component, computed, effect, signal } from "@angular/core";
 import { Ticker } from "../../../lib/ticker";
-import { WarOfBallsGame } from "../../../models/war-of-balls/war-of-balls-game";
+import { WarOfBallsGame } from "../../../models/games/war-of-balls/war-of-balls-game";
 
 @Component({
   selector: "app-war-of-balls",

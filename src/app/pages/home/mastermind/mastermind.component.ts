@@ -1,15 +1,15 @@
 import { Component, signal } from "@angular/core";
 import { MastermindGuessRowComponent } from "./mastermind-guess-row/mastermind-guess-row.component";
-import { MastermindGame } from "../../../models/mastermind/mastermind-game";
+import { MastermindGame } from "../../../models/games/mastermind/mastermind-game";
 import { MastermindRowFormComponent } from "./mastermind-row-form/mastermind-row-form.component";
-import { MastermindRow } from "../../../models/mastermind/mastermind-row";
+import { MastermindRow } from "../../../models/games/mastermind/mastermind-row";
 import { MastermindSolutionRowComponent } from "./mastermind-solution-row/mastermind-solution-row.component";
 import { MastermindRowSeparatorComponent } from "./mastermind-row-separator/mastermind-row-separator.component";
 import {
   allColors,
   MastermindColor,
-} from "../../../models/mastermind/mastermind-color";
-import { MastermindHints } from "../../../models/mastermind/mastermind-hints";
+} from "../../../models/games/mastermind/mastermind-color";
+import { MastermindHints } from "../../../models/games/mastermind/mastermind-hints";
 
 @Component({
   selector: "app-mastermind",

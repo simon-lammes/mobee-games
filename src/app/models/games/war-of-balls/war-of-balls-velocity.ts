@@ -1,4 +1,4 @@
-import { PixelsPerSeconds } from "./pixels-per-seconds";
+import { PixelsPerSeconds } from "../pixels-per-seconds";
 
 export interface WarOfBallsVelocity {
   x: PixelsPerSeconds;

@@ -1,5 +1,5 @@
 import { Component, signal } from "@angular/core";
-import { TicTacToeGame } from "../../../models/tic-tac-toe/tic-tac-toe-game";
+import { TicTacToeGame } from "../../../models/games/tic-tac-toe/tic-tac-toe-game";
 import { JsonPipe } from "@angular/common";
 
 /**
