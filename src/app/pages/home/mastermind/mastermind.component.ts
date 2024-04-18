@@ -71,7 +71,7 @@ export class MastermindComponent {
 
   onGuessSubmitted(guess: MastermindRow) {
     this.game.update((game) => {
-      let hints = this.determineHints(game.actualPattern!, guess);
+      const hints = this.determineHints(game.actualPattern!, guess);
       return {
         ...game,
         state: hints.correct === 4 ? "complete" : game.state,

@@ -6,6 +6,7 @@ import { RouterLink } from "@angular/router";
   standalone: true,
   imports: [RouterLink],
   template: `
+    <a [routerLink]="['players']">Players</a>
     <a [routerLink]="['mastermind']">Mastermind</a>
     <a [routerLink]="['tic-tac-toe']">Tic-tac-toe</a>
     <a [routerLink]="['war-of-balls']">War of balls</a>

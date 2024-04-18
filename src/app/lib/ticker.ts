@@ -3,7 +3,7 @@ import { effect, signal } from "@angular/core";
 /**
  * This object can be used to manage time for you, which can be useful for games
  * and manual animations created with JavaScript.
- * It is basically a convenient wrapper around the (requestAnimationFrame API)[https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame]
+ * It is basically a convenient wrapper around the [requestAnimationFrame API](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
  */
 export class Ticker {
   readonly timePassedMillis = signal(0);

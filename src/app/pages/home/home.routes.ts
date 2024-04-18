@@ -7,6 +7,10 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
+        path: "players",
+        loadChildren: () => import("./players/players.routes"),
+      },
+      {
         path: "mastermind",
         loadComponent: () =>
           import("./mastermind/mastermind.component").then(
