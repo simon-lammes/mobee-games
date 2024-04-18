@@ -7,6 +7,10 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
+        path: "settings",
+        loadChildren: () => import("./settings/settings.routes"),
+      },
+      {
         path: "players",
         loadChildren: () => import("./players/players.routes"),
       },

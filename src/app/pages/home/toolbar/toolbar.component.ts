@@ -76,6 +76,7 @@ export class ToolbarComponent {
     });
 
     return [
+      createLink("Settings", ["settings"]),
       createLink("Players", ["players"]),
       createLink("Mastermind", ["mastermind"]),
       createLink("Tic-tac-toe", ["tic-tac-toe"]),

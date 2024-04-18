@@ -1,16 +1,17 @@
 import { Component, input } from "@angular/core";
 import { DialogRef } from "@angular/cdk/dialog";
 import { LucideAngularModule } from "lucide-angular";
+import { H2Component } from "../headings/h2/h2.component";
 
 @Component({
   selector: "app-dialog-container",
   standalone: true,
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, H2Component],
   template: `
     <div class="p-4 space-y-4">
-      <h2 class="text-lg font-semibold leading-none tracking-tight">
+      <app-h2>
         {{ title() }}
-      </h2>
+      </app-h2>
       <div>
         <ng-content />
       </div>
